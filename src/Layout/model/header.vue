@@ -1,8 +1,8 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-11-30 17:53:21
- * @FilePath: \fy_erp_vue3\src\Layout\model\header.vue
+ * @LastEditTime: 2020-12-01 17:50:24
+ * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
 <template>
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, onBeforeUnmount } from "vue";
 import Bus from "./bus";
 export default defineComponent({
   setup() {
@@ -32,6 +32,10 @@ export default defineComponent({
       Bus.$emit("change-menu");
     }
 
+    onBeforeUnmount(() => {
+      Bus.$off("change-menu");
+    });
+
     return { changeMenu, isCollapse };
   }
 });
@@ -41,7 +45,8 @@ export default defineComponent({
 .header {
   width: 100vw;
   height: 50px;
-  box-shadow: 2px 2px 2px #f0f0f0;
+  // box-shadow: 2px 2px 2px #f0f0f0;
+  border-bottom: 2px solid #f0f0f0;
   display: flex;
   align-items: center;
   padding-left: 10px;

@@ -1,8 +1,8 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 10:19:30
- * @LastEditTime: 2020-11-30 17:14:35
- * @FilePath: \fy_erp_vue3\src\Layout\Layout.vue
+ * @LastEditTime: 2020-12-01 17:48:47
+ * @FilePath: \vue3-typescript-element-admin\src\Layout\Layout.vue
  * @permission: 
 -->
 <template>
@@ -12,6 +12,7 @@
     <div class="main">
       <!-- 头部信息 -->
       <md-header />
+      <md-nav />
       <div class="content">
         <router-view></router-view>
       </div>
@@ -23,11 +24,13 @@
 import { defineComponent } from "vue";
 import mdMenu from "./model/menu.vue";
 import mdHeader from "./model/header.vue";
+import mdNav from "./model/nav.vue";
 
 export default defineComponent({
   components: {
     mdMenu,
-    mdHeader
+    mdHeader,
+    mdNav
   },
   setup() {
     return {};
