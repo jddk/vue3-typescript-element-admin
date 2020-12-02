@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 17:39:31
- * @LastEditTime: 2020-12-01 17:35:05
+ * @LastEditTime: 2020-12-02 09:29:56
  * @FilePath: \vue3-typescript-element-admin\src\utils\bus.ts
  * @permission:
  */
@@ -20,7 +20,7 @@ class Bus {
   }
 
   // 发布
-  $emit(name: string, data?: string | boolean) {
+  $emit(name: string, data?: any) {
     this.list[name].forEach((fn: Function) => {
       fn(data);
     });

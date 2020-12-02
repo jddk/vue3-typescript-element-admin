@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 10:19:30
- * @LastEditTime: 2020-12-01 17:48:47
+ * @LastEditTime: 2020-12-02 15:15:21
  * @FilePath: \vue3-typescript-element-admin\src\Layout\Layout.vue
  * @permission: 
 -->
@@ -41,6 +41,9 @@ export default defineComponent({
 <style lang="scss" scoped>
 .layout {
   display: flex;
+}
+.main {
+  width: 100%;
 }
 .content {
   padding: 10px;

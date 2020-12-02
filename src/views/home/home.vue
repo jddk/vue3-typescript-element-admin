@@ -1,8 +1,8 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 10:26:19
- * @LastEditTime: 2020-11-27 10:26:20
- * @FilePath: \fy_erp_vue3\src\views\home\home.vue
+ * @LastEditTime: 2020-12-02 14:09:58
+ * @FilePath: \vue3-typescript-element-admin\src\views\home\home.vue
  * @permission: 
 -->
 <template>
@@ -17,7 +17,7 @@ export default defineComponent({
   name: "home",
   props: {},
   setup() {
-    const test = ref("test");
+    const test = ref("首页");
     return { test };
   }
 });

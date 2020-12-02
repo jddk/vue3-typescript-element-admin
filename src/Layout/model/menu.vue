@@ -1,99 +1,68 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-11-30 17:33:21
- * @FilePath: \fy_erp_vue3\src\Layout\model\menu.vue
+ * @LastEditTime: 2020-12-02 16:04:05
+ * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
 <template>
   <div class="menu">
     <el-menu
-      :default-active="$route.path"
+      :default-active="currentRoute"
+      :router="true"
       background-color="#304156"
       text-color="#bfcbd9"
       active-text-color="#409EFF"
-      @open="handleOpen"
-      @close="handleClose"
       :collapse="isCollapse"
+      @select="toSelect"
     >
-      <el-submenu index="1">
+      <el-menu-item index="/home">
+        <i class="el-icon-s-home"></i>
+        <template #title>首页</template>
+      </el-menu-item>
+      <el-submenu index="2">
         <template #title>
-          <i class="el-icon-location"></i>
-          <span>导航一</span>
+          <i class="el-icon-s-management"></i>
+          <span>租赁</span>
         </template>
-        <el-menu-item-group>
-          <template #title>分组一</template>
-          <el-menu-item index="1-1">选项1</el-menu-item>
-          <el-menu-item index="1-2">选项2</el-menu-item>
-        </el-menu-item-group>
-        <el-menu-item-group title="分组2">
-          <el-menu-item index="1-3">选项3</el-menu-item>
-        </el-menu-item-group>
-        <el-submenu index="1-4">
-          <template #title>选项4</template>
-          <el-menu-item index="1-4-1">选项1</el-menu-item>
-        </el-submenu>
+        <el-menu-item index="/contract">
+          <i class="el-icon-s-check"></i>
+          <span>合同</span>
+        </el-menu-item>
+        <el-menu-item index="/order">
+          <i class="el-icon-s-claim"></i>
+          <span>订单</span>
+        </el-menu-item>
       </el-submenu>
-      <el-menu-item index="2">
-        <i class="el-icon-menu"></i>
-        <template #title>导航二</template>
-      </el-menu-item>
-      <el-menu-item index="3" disabled>
-        <i class="el-icon-document"></i>
-        <template #title>导航三</template>
-      </el-menu-item>
-      <el-menu-item index="4">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-      <el-menu-item index="5">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-      <el-menu-item index="6">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-      <el-menu-item index="7">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-      <el-menu-item index="8">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-      <el-menu-item index="9">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
-      <el-menu-item index="10">
-        <i class="el-icon-setting"></i>
-        <template #title>导航四</template>
-      </el-menu-item>
     </el-menu>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import Bus from "./bus";
 export default defineComponent({
   setup() {
     const isCollapse = ref(false);
+    const router = useRouter();
+    const route = useRoute();
+    // 当前路由path
+    const currentRoute = computed(() => route.path);
 
+    const routers = router.options.routes[0];
     onMounted(() => {
+      console.log(route, router);
       Bus.$on("change-menu", () => {
         isCollapse.value = !isCollapse.value;
       });
     });
 
-    function handleOpen(key: string, keyPath: string) {
-      console.log(key, keyPath);
+    function toSelect(path: string) {
+      router.push({ path: path });
     }
-    function handleClose(key: string, keyPath: string) {
-      console.log(key, keyPath);
-    }
-    return { isCollapse, handleOpen, handleClose };
+
+    return { isCollapse, currentRoute, toSelect };
   }
 });
 </script>

@@ -1,19 +1,21 @@
 <!--
  * @name: 
  * @Date: 2020-12-01 17:46:51
- * @LastEditTime: 2020-12-01 17:57:46
+ * @LastEditTime: 2020-12-02 14:56:14
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\nav.vue
  * @permission: 
 -->
 <template>
   <div class="nav">
     <el-tag
-      v-for="tag in tags"
+      v-for="(tag, i) in tags"
       :key="tag.name"
       size="medium"
       closable
-      effect="plain"
+      :effect="tag.effect"
       :type="tag.type"
+      @close="toClose(i)"
+      @click="toClick(tag)"
     >
       {{ tag.name }}
     </el-tag>
@@ -24,23 +26,30 @@
 import { defineComponent, reactive } from "vue";
 
 export default defineComponent({
-  name: "nav",
+  name: "md-nav",
   setup() {
     const tags = reactive([
-      { name: "标签一", type: "" },
-      { name: "标签二", type: "success" },
-      { name: "标签三", type: "info" },
-      { name: "标签四", type: "warning" },
-      { name: "标签五", type: "danger" }
+      { name: "标签一", type: "success", effect: "dark" },
+      { name: "标签二", type: "info", effect: "plain" },
+      { name: "标签三", type: "info", effect: "plain" },
+      { name: "标签四", type: "info", effect: "plain" },
+      { name: "标签五", type: "info", effect: "plain" }
     ]);
-    return { tags };
+
+    function toClose(i: number) {
+      tags.splice(i, 1);
+    }
+    function toClick(tag: object) {
+      console.log(tag);
+    }
+    return { tags, toClose, toClick };
   }
 });
 </script>
 
 <style scoped>
 .nav {
-  width: 100vw;
+  width: 100%;
   height: 40px;
   box-shadow: 2px 2px 2px #f0f0f0;
   display: flex;
