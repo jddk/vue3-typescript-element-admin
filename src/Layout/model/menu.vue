@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-02 16:04:05
+ * @LastEditTime: 2020-12-03 17:44:55
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -20,7 +20,7 @@
         <i class="el-icon-s-home"></i>
         <template #title>首页</template>
       </el-menu-item>
-      <el-submenu index="2">
+      <el-submenu index="/rent">
         <template #title>
           <i class="el-icon-s-management"></i>
           <span>租赁</span>
@@ -33,6 +33,30 @@
           <i class="el-icon-s-claim"></i>
           <span>订单</span>
         </el-menu-item>
+      </el-submenu>
+      <el-submenu index="setting">
+        <template #title>
+          <i class="el-icon-s-management"></i>
+          <span>系统管理</span>
+        </template>
+        <el-menu-item index="/webApi">
+          <i class="el-icon-s-management"></i>
+          <span>webApi</span>
+        </el-menu-item>
+        <el-submenu index="permissions">
+          <template #title>
+            <i class="el-icon-s-management"></i>
+            <span>权限管理</span>
+          </template>
+          <el-menu-item index="/role">
+            <i class="el-icon-s-management"></i>
+            <span>角色</span>
+          </el-menu-item>
+          <el-menu-item index="/user">
+            <i class="el-icon-s-management"></i>
+            <span>用户管理</span>
+          </el-menu-item>
+        </el-submenu>
       </el-submenu>
     </el-menu>
   </div>
@@ -50,9 +74,11 @@ export default defineComponent({
     // 当前路由path
     const currentRoute = computed(() => route.path);
 
-    const routers = router.options.routes[0];
+    const routers = computed(() => {
+      // router.options.routes
+    });
+
     onMounted(() => {
-      console.log(route, router);
       Bus.$on("change-menu", () => {
         isCollapse.value = !isCollapse.value;
       });

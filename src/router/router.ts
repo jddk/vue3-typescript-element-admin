@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-02 14:40:00
+ * @LastEditTime: 2020-12-03 17:20:54
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
@@ -21,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
     path: "/login",
     name: "login",
     component: Login,
-    meta: { title: "登录", icon: "logo" }
+    meta: { title: "登录", icon: "logo", hidden: true }
   },
   {
     path: "/",
@@ -33,19 +33,77 @@ const routes: Array<RouteRecordRaw> = [
         path: "/home",
         component: () => import("../views/home/home.vue"),
         name: "home",
-        meta: { title: "首页", icon: "index", noCache: true, affix: true }
-      },
+        meta: { title: "首页", icon: "index" }
+      }
+    ]
+  },
+  {
+    path: "/order",
+    name: "order",
+    component: Layout,
+    meta: { parentName: "租赁", parentPath: "rent" },
+    children: [
       {
         path: "/order",
-        component: () => import("../views/rent/order/order.vue"),
         name: "order",
-        meta: { title: "订单", icon: "index", noCache: true, affix: true }
-      },
+        component: () => import("../views/rent/order/order.vue"),
+        meta: { title: "订单", icon: "index" }
+      }
+    ]
+  },
+  {
+    path: "/contract",
+    name: "contract",
+    component: Layout,
+    meta: { parentName: "租赁", parentPath: "rent" },
+    children: [
       {
         path: "/contract",
-        component: () => import("../views/rent/contract/contract.vue"),
         name: "contract",
-        meta: { title: "合同", icon: "index", noCache: true, affix: true }
+        component: () => import("../views/rent/contract/contract.vue"),
+        meta: { title: "合同", icon: "index", noCache: true }
+      }
+    ]
+  },
+  {
+    path: "/webApi",
+    name: "webApi",
+    component: Layout,
+    meta: { parentName: "系统设置", parentPath: "setting" },
+    children: [
+      {
+        path: "/webApi",
+        name: "webApi",
+        component: () => import("../views/setting/webApi/webApi.vue"),
+        meta: { title: "webApi", icon: "index", noCache: true }
+      }
+    ]
+  },
+  {
+    path: "/role",
+    name: "role",
+    component: Layout,
+    meta: { parentName: "权限管理", parentPath: "permissions" },
+    children: [
+      {
+        path: "/role",
+        name: "role",
+        component: () => import("../views/setting/permissions/role/role.vue"),
+        meta: { title: "角色管理", icon: "index", noCache: true }
+      }
+    ]
+  },
+  {
+    path: "/user",
+    name: "user",
+    component: Layout,
+    meta: { parentName: "权限管理", parentPath: "permissions" },
+    children: [
+      {
+        path: "/user",
+        name: "user",
+        component: () => import("../views/setting/permissions/user/user.vue"),
+        meta: { title: "用户管理", icon: "index", noCache: true }
       }
     ]
   }
