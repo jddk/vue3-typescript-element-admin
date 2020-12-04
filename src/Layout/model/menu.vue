@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-03 17:44:55
+ * @LastEditTime: 2020-12-04 17:53:25
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -74,9 +74,36 @@ export default defineComponent({
     // 当前路由path
     const currentRoute = computed(() => route.path);
 
-    const routers = computed(() => {
-      // router.options.routes
+    // const routers = computed(() => {
+    //   // router.options.routes
+    // });
+
+    const routes: any = router.options.routes;
+    let menus: any = [];
+    let treeMenus = [];
+    for (let i = 0; i < routes.length; i++) {
+      if (routes[i].path === "/") {
+        menus = routes[i].children.map((item: any) => {
+          return {
+            path: item.path,
+            name: item.name,
+            meta: { ...item.meta }
+          };
+        });
+        break;
+      }
+    }
+
+    menus.forEach((item: any) => {
+      menus.forEach((cell: any) => {
+        if (item.meta.parent === cell.name) {
+          cell.children = cell.children || [];
+          cell.children.push(item);
+        }
+      });
     });
+    treeMenus = menus.filter((item: any) => !item.meta.parent);
+    console.log(treeMenus);
 
     onMounted(() => {
       Bus.$on("change-menu", () => {
