@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-04 17:54:57
+ * @LastEditTime: 2020-12-05 18:37:33
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/setting",
         name: "setting",
         component: () => import("./Empty.vue"),
-        meta: { title: "webApi" }
+        meta: { title: "系统设置" }
       },
       {
         path: "/webApi",
@@ -82,6 +82,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "user",
         component: () => import("@/views/setting/permission/user/user.vue"),
         meta: { title: "用户管理", parent: "permission" }
+      },
+      {
+        path: "/user1",
+        name: "user1",
+        component: () => import("@/views/setting/permission/user/user.vue"),
+        meta: { title: "标题管理", parent: "permission" }
       }
     ]
   }
