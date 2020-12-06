@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-05 18:00:13
+ * @LastEditTime: 2020-12-06 15:55:07
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -22,13 +22,14 @@
 </template>
 
 <script lang="ts">
-interface RouteConfig {
+interface Menus {
   path: string;
-  name: string;
-  meta: object;
+  name: string | symbol | undefined;
+  meta?: { [x: string]: any; [x: number]: any };
   comments?: string;
-  children?: any;
+  children?: Menus[];
 }
+
 import { defineComponent, ref, reactive, onMounted, computed } from "vue";
 import { useRouter, useRoute, RouteRecordRaw } from "vue-router";
 import mdMenuItem from "./menu-item.vue";
@@ -37,12 +38,13 @@ import Bus from "./bus";
 // 将路由转成树
 function routesToTree() {
   const router = useRouter();
-  const routes: Array<RouteRecordRaw> = router.options.routes;
-  let menus: Array<RouteConfig> = [];
-  let treeMenus: any[] = [];
+  const routes: RouteRecordRaw[] = router.options.routes;
+  let menus: Menus[] = [];
+  let treeMenus: Menus[] = [];
   for (let i = 0; i < routes.length; i++) {
-    if (routes[i].path === "/") {
-      menus = (routes[i] as RouteConfig).children.map((item: any) => {
+    if (routes[i].path === "/" && routes[i].children) {
+      const children: RouteRecordRaw[] = routes[i].children || [];
+      menus = children.map((item: RouteRecordRaw) => {
         return {
           path: item.path,
           name: item.name,
@@ -53,16 +55,19 @@ function routesToTree() {
     }
   }
 
-  menus.forEach((item: any) => {
-    menus.forEach((cell: any) => {
-      if (item.meta.parent === cell.name) {
+  menus.forEach((item: Menus) => {
+    menus.forEach((cell: Menus) => {
+      if (item.meta && item.meta.parent === cell.name) {
         cell.children = cell.children || [];
         cell.children.push(item);
       }
     });
   });
-  treeMenus = menus.filter((item: any) => !item.meta.parent);
-  console.log(treeMenus);
+  treeMenus = menus.filter((item: Menus) => {
+    if (item.meta) {
+      return !item.meta.parent;
+    }
+  });
   return treeMenus;
 }
 export default defineComponent({

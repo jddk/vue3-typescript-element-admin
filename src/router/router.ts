@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-05 18:37:33
+ * @LastEditTime: 2020-12-06 15:31:22
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
@@ -16,7 +16,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Layout from "../Layout/Layout.vue";
 import Login from "@/views/login/login.vue";
 
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/login",
     name: "login",
@@ -82,12 +82,6 @@ const routes: Array<RouteRecordRaw> = [
         name: "user",
         component: () => import("@/views/setting/permission/user/user.vue"),
         meta: { title: "用户管理", parent: "permission" }
-      },
-      {
-        path: "/user1",
-        name: "user1",
-        component: () => import("@/views/setting/permission/user/user.vue"),
-        meta: { title: "标题管理", parent: "permission" }
       }
     ]
   }
