@@ -1,39 +1,31 @@
-# fy_erp_vue3
+# vue3-typescript-element-admin
 
-## Project setup
+vue-element-admin 项目中对超过三级的菜单存在缓存问题
+
 ```
 yarn install
 ```
 
-### Compiles and hot-reloads for development
 ```
 yarn serve
 ```
 
-### Compiles and minifies for production
 ```
 yarn build
 ```
 
-### Run your unit tests
 ```
 yarn test:unit
 ```
 
-### Run your end-to-end tests
 ```
 yarn test:e2e
 ```
 
-### Lints and fixes files
 ```
 yarn lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-
-
 ## 目录命名说明
+
 框架采用大写开头如：Layout
