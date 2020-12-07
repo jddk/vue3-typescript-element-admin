@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-06 15:55:07
+ * @LastEditTime: 2020-12-07 17:33:29
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -16,7 +16,7 @@
       :collapse="isCollapse"
       @select="toSelect"
     >
-      <md-menu-item :menus="menus" />
+      <md-menu-item :menus="treeMenus" />
     </el-menu>
   </div>
 </template>
@@ -25,12 +25,19 @@
 interface Menus {
   path: string;
   name: string | symbol | undefined;
-  meta?: { [x: string]: any; [x: number]: any };
+  meta?: { [x: string]: string; [x: number]: string };
   comments?: string;
   children?: Menus[];
 }
 
-import { defineComponent, ref, reactive, onMounted, computed } from "vue";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+  onBeforeMount,
+  computed
+} from "vue";
 import { useRouter, useRoute, RouteRecordRaw } from "vue-router";
 import mdMenuItem from "./menu-item.vue";
 import Bus from "./bus";
@@ -42,7 +49,7 @@ function routesToTree() {
   let menus: Menus[] = [];
   let treeMenus: Menus[] = [];
   for (let i = 0; i < routes.length; i++) {
-    if (routes[i].path === "/" && routes[i].children) {
+    if (routes[i].path === "/") {
       const children: RouteRecordRaw[] = routes[i].children || [];
       menus = children.map((item: RouteRecordRaw) => {
         return {
@@ -68,6 +75,7 @@ function routesToTree() {
       return !item.meta.parent;
     }
   });
+  Bus.$emit("tree-menus", treeMenus);
   return treeMenus;
 }
 export default defineComponent({
@@ -76,7 +84,8 @@ export default defineComponent({
     const router = useRouter();
     const route = useRoute();
     const isCollapse = ref(false);
-    const menus = reactive(routesToTree());
+    const treeMenus = reactive(routesToTree());
+
     // 当前路由path
     const currentRoute = computed(() => route.path);
 
@@ -86,11 +95,15 @@ export default defineComponent({
       });
     });
 
+    onBeforeMount(() => {
+      Bus.$off("tree-menus");
+    });
+
     function toSelect(path: string) {
       router.push({ path: path });
     }
 
-    return { isCollapse, currentRoute, toSelect, menus };
+    return { isCollapse, currentRoute, toSelect, treeMenus };
   }
 });
 </script>

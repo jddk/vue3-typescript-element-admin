@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-12-02 15:19:08
+ * @LastEditTime: 2020-12-07 17:59:24
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -14,9 +14,9 @@
         @click="changeMenu"
       ></i>
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item>租赁管理</el-breadcrumb-item>
-        <el-breadcrumb-item>合同列表列表</el-breadcrumb-item>
+        <el-breadcrumb-item v-for="item in data.routeList" :key="item.path">{{
+          item.meta.title
+        }}</el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="right">
@@ -26,15 +26,47 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onBeforeUnmount } from "vue";
-import { useRouter } from "vue-router";
+import {
+  defineComponent,
+  ref,
+  reactive,
+  onMounted,
+  onBeforeUnmount
+} from "vue";
+import {
+  useRouter,
+  useRoute,
+  onBeforeRouteUpdate,
+  RouteRecordRaw
+} from "vue-router";
 import Bus from "./bus";
+interface Items {
+  path: string;
+  name: string | symbol | undefined;
+  meta?: { [x: string]: string; [x: number]: string };
+}
+interface Menus {
+  path?: string;
+  name?: string | symbol | undefined;
+  meta?: { [x: string]: string; [x: number]: string };
+  comments?: string;
+  children?: Menus[];
+}
+interface Data {
+  routeList: Items[];
+}
 export default defineComponent({
   name: "md-header",
   setup() {
     const isCollapse = ref(true);
     const router = useRouter();
+    const route = useRoute();
+    let treeMenus: Menus[] = [];
+    const data = reactive<Data>({
+      routeList: []
+    });
 
+    // 打开和收起侧边栏
     function changeMenu() {
       isCollapse.value = !isCollapse.value;
       Bus.$emit("change-menu");
@@ -46,11 +78,36 @@ export default defineComponent({
       location.reload();
     }
 
+    onBeforeRouteUpdate((to: any) => {
+      if (to.meta.parent) {
+        const paths: string[] = to.path.split("/").splice(1);
+        let treeWrap: Menus = {};
+        treeMenus.forEach((item: Menus) => {
+          paths.forEach((cell: string) => {
+            if (item.name === cell) {
+              treeWrap = JSON.parse(JSON.stringify(item));
+            }
+          });
+        });
+        while (treeWrap.children) {
+          // data.routeList.push({name:})
+        }
+      } else {
+        data.routeList = [
+          { path: to.path, name: to.name, meta: { title: to.meta.title } }
+        ];
+      }
+    });
+    onMounted(() => {
+      Bus.$on("tree-menus", (val: Menus[]) => {
+        treeMenus = val;
+      });
+    });
     onBeforeUnmount(() => {
       Bus.$off("change-menu");
     });
 
-    return { changeMenu, isCollapse, toLogout };
+    return { changeMenu, isCollapse, toLogout, data };
   }
 });
 </script>

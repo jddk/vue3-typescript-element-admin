@@ -1,13 +1,13 @@
 /*
  * @name:
  * @Date: 2020-11-27 17:39:31
- * @LastEditTime: 2020-12-02 09:29:56
+ * @LastEditTime: 2020-12-07 17:30:02
  * @FilePath: \vue3-typescript-element-admin\src\utils\bus.ts
  * @permission:
  */
 // 为保持和vue2版本中使用bus一致，emit,on,off前面都加了$
 class Bus {
-  list: { [key: string]: Array<Function> };
+  list: { [key: string]: Function[] };
   constructor() {
     // 收集订阅信息,调度中心
     this.list = {};
@@ -20,10 +20,12 @@ class Bus {
   }
 
   // 发布
-  $emit(name: string, data?: any) {
-    this.list[name].forEach((fn: Function) => {
-      fn(data);
-    });
+  $emit(name: string, data?: string | number | object | any[]) {
+    if (this.list[name]) {
+      this.list[name].forEach((fn: Function) => {
+        fn(data);
+      });
+    }
   }
 
   // 取消订阅

@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-06 15:31:22
+ * @LastEditTime: 2020-12-07 15:40:23
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
@@ -42,13 +42,13 @@ const routes: RouteRecordRaw[] = [
         meta: { title: "租赁管理", icon: "index" }
       },
       {
-        path: "/order",
+        path: "/rent/order",
         name: "order",
         component: () => import("@/views/rent/order/order.vue"),
         meta: { title: "订单", icon: "index", parent: "rent" }
       },
       {
-        path: "/contract",
+        path: "/rent/contract",
         name: "contract",
         component: () => import("@/views/rent/contract/contract.vue"),
         meta: { title: "合同", icon: "index", parent: "rent" }
@@ -60,25 +60,25 @@ const routes: RouteRecordRaw[] = [
         meta: { title: "系统设置" }
       },
       {
-        path: "/webApi",
+        path: "/setting/webApi",
         name: "webApi",
         component: () => import("@/views/setting/webApi/webApi.vue"),
         meta: { title: "接口文档", parent: "setting" }
       },
       {
-        path: "/permission",
+        path: "/setting/permission",
         name: "permission",
         component: () => import("./Empty.vue"),
         meta: { title: "权限管理", parent: "setting" }
       },
       {
-        path: "/role",
+        path: "/setting/permission/role",
         name: "role",
         component: () => import("@/views/setting/permission/role/role.vue"),
         meta: { title: "角色管理", parent: "permission" }
       },
       {
-        path: "/user",
+        path: "/setting/permission/user",
         name: "user",
         component: () => import("@/views/setting/permission/user/user.vue"),
         meta: { title: "用户管理", parent: "permission" }

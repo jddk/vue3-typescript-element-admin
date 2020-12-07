@@ -1,8 +1,8 @@
 /*
  * @name:
  * @Date: 2020-12-02 14:16:02
- * @LastEditTime: 2020-12-02 15:16:13
- * @FilePath: \vue3-typescript-element-admin\src\router\routerBefore.ts
+ * @LastEditTime: 2020-12-07 09:33:40
+ * @FilePath: \vue3-typescript-element-admin\src\router\routerIntercept.ts
  * @permission:
  */
 import router from "./router";

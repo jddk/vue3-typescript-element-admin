@@ -1,12 +1,12 @@
 <!--
  * @Date: 2020-12-05 14:32:58
- * @LastEditTime: 2020-12-05 18:34:49
+ * @LastEditTime: 2020-12-07 17:34:16
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu-item.vue
  * @Author: 九段刀客
  * @permission: 
 -->
 <template>
-  <div v-for="item in menus" :key="item.name">
+  <template v-for="item in menus" :key="item.name">
     <!-- 有children -->
     <el-submenu v-if="item.children" :index="item.path">
       <!-- 层级的标题 -->
@@ -44,7 +44,7 @@
       <i class="el-icon-s-check"></i>
       <span>{{ item.meta.title }}</span>
     </el-menu-item>
-  </div>
+  </template>
 </template>
 
 <script lang="ts">
@@ -57,9 +57,6 @@ export default defineComponent({
       type: Array,
       require: true
     }
-  },
-  setup(props) {
-    return {};
   }
 });
 </script>
