@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-04 17:54:57
+ * @LastEditTime: 2020-12-06 15:31:22
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
@@ -16,7 +16,7 @@ import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Layout from "../Layout/Layout.vue";
 import Login from "@/views/login/login.vue";
 
-const routes: Array<RouteRecordRaw> = [
+const routes: RouteRecordRaw[] = [
   {
     path: "/login",
     name: "login",
@@ -57,7 +57,7 @@ const routes: Array<RouteRecordRaw> = [
         path: "/setting",
         name: "setting",
         component: () => import("./Empty.vue"),
-        meta: { title: "webApi" }
+        meta: { title: "系统设置" }
       },
       {
         path: "/webApi",

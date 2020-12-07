@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-04 17:53:25
+ * @LastEditTime: 2020-12-06 15:55:07
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -16,94 +16,69 @@
       :collapse="isCollapse"
       @select="toSelect"
     >
-      <el-menu-item index="/home">
-        <i class="el-icon-s-home"></i>
-        <template #title>首页</template>
-      </el-menu-item>
-      <el-submenu index="/rent">
-        <template #title>
-          <i class="el-icon-s-management"></i>
-          <span>租赁</span>
-        </template>
-        <el-menu-item index="/contract">
-          <i class="el-icon-s-check"></i>
-          <span>合同</span>
-        </el-menu-item>
-        <el-menu-item index="/order">
-          <i class="el-icon-s-claim"></i>
-          <span>订单</span>
-        </el-menu-item>
-      </el-submenu>
-      <el-submenu index="setting">
-        <template #title>
-          <i class="el-icon-s-management"></i>
-          <span>系统管理</span>
-        </template>
-        <el-menu-item index="/webApi">
-          <i class="el-icon-s-management"></i>
-          <span>webApi</span>
-        </el-menu-item>
-        <el-submenu index="permissions">
-          <template #title>
-            <i class="el-icon-s-management"></i>
-            <span>权限管理</span>
-          </template>
-          <el-menu-item index="/role">
-            <i class="el-icon-s-management"></i>
-            <span>角色</span>
-          </el-menu-item>
-          <el-menu-item index="/user">
-            <i class="el-icon-s-management"></i>
-            <span>用户管理</span>
-          </el-menu-item>
-        </el-submenu>
-      </el-submenu>
+      <md-menu-item :menus="menus" />
     </el-menu>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, computed } from "vue";
-import { useRouter, useRoute } from "vue-router";
+interface Menus {
+  path: string;
+  name: string | symbol | undefined;
+  meta?: { [x: string]: any; [x: number]: any };
+  comments?: string;
+  children?: Menus[];
+}
+
+import { defineComponent, ref, reactive, onMounted, computed } from "vue";
+import { useRouter, useRoute, RouteRecordRaw } from "vue-router";
+import mdMenuItem from "./menu-item.vue";
 import Bus from "./bus";
+
+// 将路由转成树
+function routesToTree() {
+  const router = useRouter();
+  const routes: RouteRecordRaw[] = router.options.routes;
+  let menus: Menus[] = [];
+  let treeMenus: Menus[] = [];
+  for (let i = 0; i < routes.length; i++) {
+    if (routes[i].path === "/" && routes[i].children) {
+      const children: RouteRecordRaw[] = routes[i].children || [];
+      menus = children.map((item: RouteRecordRaw) => {
+        return {
+          path: item.path,
+          name: item.name,
+          meta: { ...item.meta }
+        };
+      });
+      break;
+    }
+  }
+
+  menus.forEach((item: Menus) => {
+    menus.forEach((cell: Menus) => {
+      if (item.meta && item.meta.parent === cell.name) {
+        cell.children = cell.children || [];
+        cell.children.push(item);
+      }
+    });
+  });
+  treeMenus = menus.filter((item: Menus) => {
+    if (item.meta) {
+      return !item.meta.parent;
+    }
+  });
+  return treeMenus;
+}
 export default defineComponent({
+  components: { mdMenuItem },
   setup() {
-    const isCollapse = ref(false);
     const router = useRouter();
     const route = useRoute();
+    const isCollapse = ref(false);
+    const menus = reactive(routesToTree());
     // 当前路由path
     const currentRoute = computed(() => route.path);
-
-    // const routers = computed(() => {
-    //   // router.options.routes
-    // });
-
-    const routes: any = router.options.routes;
-    let menus: any = [];
-    let treeMenus = [];
-    for (let i = 0; i < routes.length; i++) {
-      if (routes[i].path === "/") {
-        menus = routes[i].children.map((item: any) => {
-          return {
-            path: item.path,
-            name: item.name,
-            meta: { ...item.meta }
-          };
-        });
-        break;
-      }
-    }
-
-    menus.forEach((item: any) => {
-      menus.forEach((cell: any) => {
-        if (item.meta.parent === cell.name) {
-          cell.children = cell.children || [];
-          cell.children.push(item);
-        }
-      });
-    });
-    treeMenus = menus.filter((item: any) => !item.meta.parent);
-    console.log(treeMenus);
 
     onMounted(() => {
       Bus.$on("change-menu", () => {
@@ -115,7 +90,7 @@ export default defineComponent({
       router.push({ path: path });
     }
 
-    return { isCollapse, currentRoute, toSelect };
+    return { isCollapse, currentRoute, toSelect, menus };
   }
 });
 </script>
