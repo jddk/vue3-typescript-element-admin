@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-08 13:59:24
+ * @LastEditTime: 2020-12-08 14:01:23
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -22,14 +22,6 @@
 </template>
 
 <script lang="ts">
-interface Menus {
-  path: string;
-  name: string | symbol | undefined;
-  meta?: { [x: string]: string; [x: number]: string };
-  comments?: string;
-  children?: Menus[];
-}
-
 import { defineComponent, ref, reactive, onMounted, computed } from "vue";
 import { useRouter, useRoute, RouteRecordRaw } from "vue-router";
 import mdMenuItem from "./menu-item.vue";
@@ -37,6 +29,13 @@ import Bus from "./bus";
 
 // 将路由转成树
 function routesToTree() {
+  interface Menus {
+    path: string;
+    name: string | symbol | undefined;
+    meta?: { [x: string]: string; [x: number]: string };
+    comments?: string;
+    children?: Menus[];
+  }
   const router = useRouter();
   const routes: RouteRecordRaw[] = router.options.routes;
   let menus: Menus[] = [];
