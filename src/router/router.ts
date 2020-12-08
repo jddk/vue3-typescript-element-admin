@@ -1,15 +1,8 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-08 16:50:40
+ * @LastEditTime: 2020-12-08 16:57:53
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
- * @permission:
- */
-/*
- * @name:
- * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-02 14:17:17
- * @FilePath: \vue3-typescript-element-admin\src\router\index.ts
  * @permission:
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";

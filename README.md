@@ -1,6 +1,7 @@
 # vue3-typescript-element-admin
 
 技术栈：vue3 + typescript + element-plus
+![](./public/img/readme/index.png)
 
 ## 注意
 
