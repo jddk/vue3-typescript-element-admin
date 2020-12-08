@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-07 17:33:29
+ * @LastEditTime: 2020-12-08 11:06:55
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -30,14 +30,7 @@ interface Menus {
   children?: Menus[];
 }
 
-import {
-  defineComponent,
-  ref,
-  reactive,
-  onMounted,
-  onBeforeMount,
-  computed
-} from "vue";
+import { defineComponent, ref, reactive, onMounted, computed } from "vue";
 import { useRouter, useRoute, RouteRecordRaw } from "vue-router";
 import mdMenuItem from "./menu-item.vue";
 import Bus from "./bus";
@@ -75,7 +68,6 @@ function routesToTree() {
       return !item.meta.parent;
     }
   });
-  Bus.$emit("tree-menus", treeMenus);
   return treeMenus;
 }
 export default defineComponent({
@@ -95,12 +87,8 @@ export default defineComponent({
       });
     });
 
-    onBeforeMount(() => {
-      Bus.$off("tree-menus");
-    });
-
-    function toSelect(path: string) {
-      router.push({ path: path });
+    function toSelect(index: string) {
+      router.push({ path: index });
     }
 
     return { isCollapse, currentRoute, toSelect, treeMenus };

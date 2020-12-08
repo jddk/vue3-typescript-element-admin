@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-12-07 17:59:24
+ * @LastEditTime: 2020-12-08 11:06:23
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -40,74 +40,66 @@ import {
   RouteRecordRaw
 } from "vue-router";
 import Bus from "./bus";
-interface Items {
-  path: string;
-  name: string | symbol | undefined;
-  meta?: { [x: string]: string; [x: number]: string };
-}
-interface Menus {
-  path?: string;
-  name?: string | symbol | undefined;
-  meta?: { [x: string]: string; [x: number]: string };
-  comments?: string;
-  children?: Menus[];
-}
-interface Data {
-  routeList: Items[];
+// 当前路由层级计算
+function getRouteList() {
+  interface Data {
+    routeList: RouteRecordRaw[];
+  }
+  const data = reactive<Data>({
+    routeList: []
+  });
+  // 根据路由path计算
+  function pathToArr(path: string, routes: RouteRecordRaw[]) {
+    const pathArr: string[] = path.split("/").splice(1);
+    const arr = [];
+    for (const i of pathArr) {
+      for (const j of routes) {
+        if (i === j.name) {
+          arr.push(j);
+          break;
+        }
+      }
+    }
+    data.routeList = arr;
+  }
+
+  // 初始化
+  onMounted(() => {
+    const route = useRoute();
+    pathToArr(route.path, route.matched[0].children);
+  });
+  // 路由更新
+  onBeforeRouteUpdate((to: any) => {
+    pathToArr(to.path, to.matched[0].children);
+  });
+
+  return data;
 }
 export default defineComponent({
   name: "md-header",
   setup() {
+    // 1、展开收起侧边栏逻辑
     const isCollapse = ref(true);
-    const router = useRouter();
-    const route = useRoute();
-    let treeMenus: Menus[] = [];
-    const data = reactive<Data>({
-      routeList: []
-    });
-
-    // 打开和收起侧边栏
     function changeMenu() {
       isCollapse.value = !isCollapse.value;
       Bus.$emit("change-menu");
     }
+    onBeforeUnmount(() => {
+      Bus.$off("change-menu");
+    });
 
+    // 2、退出登录
     function toLogout() {
+      const router = useRouter();
       localStorage.removeItem("TOKEN-VUE3-TS-EL-ADMIN");
       router.push({ path: "/login" });
       location.reload();
     }
 
-    onBeforeRouteUpdate((to: any) => {
-      if (to.meta.parent) {
-        const paths: string[] = to.path.split("/").splice(1);
-        let treeWrap: Menus = {};
-        treeMenus.forEach((item: Menus) => {
-          paths.forEach((cell: string) => {
-            if (item.name === cell) {
-              treeWrap = JSON.parse(JSON.stringify(item));
-            }
-          });
-        });
-        while (treeWrap.children) {
-          // data.routeList.push({name:})
-        }
-      } else {
-        data.routeList = [
-          { path: to.path, name: to.name, meta: { title: to.meta.title } }
-        ];
-      }
-    });
-    onMounted(() => {
-      Bus.$on("tree-menus", (val: Menus[]) => {
-        treeMenus = val;
-      });
-    });
-    onBeforeUnmount(() => {
-      Bus.$off("change-menu");
-    });
+    // 3、当前路由层级计算
+    const data = getRouteList();
 
-    return { changeMenu, isCollapse, toLogout, data };
+    return { isCollapse, changeMenu, toLogout, data };
   }
 });
 </script>
