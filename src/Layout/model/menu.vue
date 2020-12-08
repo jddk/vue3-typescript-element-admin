@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-08 11:06:55
+ * @LastEditTime: 2020-12-08 13:59:24
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -73,24 +73,26 @@ function routesToTree() {
 export default defineComponent({
   components: { mdMenuItem },
   setup() {
+    // 1、选择路由
     const router = useRouter();
-    const route = useRoute();
+    function toSelect(index: string) {
+      router.push({ path: index });
+    }
+
+    // 2、左侧菜单展开收起
     const isCollapse = ref(false);
-    const treeMenus = reactive(routesToTree());
-
-    // 当前路由path
-    const currentRoute = computed(() => route.path);
-
     onMounted(() => {
       Bus.$on("change-menu", () => {
         isCollapse.value = !isCollapse.value;
       });
     });
 
-    function toSelect(index: string) {
-      router.push({ path: index });
-    }
+    // 3、高亮当前路由
+    const route = useRoute();
+    const currentRoute = computed(() => route.path);
 
+    // 4、路由转树
+    const treeMenus = reactive(routesToTree());
     return { isCollapse, currentRoute, toSelect, treeMenus };
   }
 });
