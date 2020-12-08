@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 10:19:30
- * @LastEditTime: 2020-12-02 15:15:21
+ * @LastEditTime: 2020-12-08 16:37:56
  * @FilePath: \vue3-typescript-element-admin\src\Layout\Layout.vue
  * @permission: 
 -->
@@ -14,14 +14,15 @@
       <md-header />
       <md-nav />
       <div class="content">
-        <router-view></router-view>
+        <router-view :key="fullPath"></router-view>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, computed } from "vue";
+import { useRoute } from "vue-router";
 import mdMenu from "./model/menu.vue";
 import mdHeader from "./model/header.vue";
 import mdNav from "./model/nav.vue";
@@ -33,7 +34,9 @@ export default defineComponent({
     mdNav
   },
   setup() {
-    return {};
+    const route = useRoute();
+    const fullPath = computed(() => route.fullPath);
+    return { fullPath };
   }
 });
 </script>

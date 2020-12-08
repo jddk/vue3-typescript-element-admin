@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-07 15:40:23
+ * @LastEditTime: 2020-12-08 16:50:40
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
         path: "/home",
         component: () => import("@/views/home/home.vue"),
         name: "home",
-        meta: { title: "首页", icon: "index" }
+        meta: { title: "首页", icon: "index", isAffix: true }
       },
       {
         path: "/rent",
@@ -84,7 +84,14 @@ const routes: RouteRecordRaw[] = [
         meta: { title: "用户管理", parent: "permission" }
       }
     ]
-  }
+  },
+  {
+    path: "/404",
+    name: "404",
+    component: () => import("@/views/404/404.vue"),
+    meta: { hidden: true, title: "404" }
+  },
+  { path: "/:pathMatch(.*)*", name: "not-found", redirect: "/404" }
 ];
 
 const router = createRouter({

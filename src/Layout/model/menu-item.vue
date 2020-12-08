@@ -1,6 +1,6 @@
 <!--
  * @Date: 2020-12-05 14:32:58
- * @LastEditTime: 2020-12-07 17:34:16
+ * @LastEditTime: 2020-12-08 14:35:47
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu-item.vue
  * @Author: 九段刀客
  * @permission: 
@@ -17,7 +17,7 @@
       <!-- 层级的内容 -->
       <template
         v-for="cell in item.children"
-        :key="cell.name"
+        :key="cell.path"
         :index="cell.path"
       >
         <!-- 如果还有子集递归 -->
@@ -60,5 +60,3 @@ export default defineComponent({
   }
 });
 </script>
-
-<style scoped></style>

@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-08 14:01:23
+ * @LastEditTime: 2020-12-08 16:31:31
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -32,7 +32,10 @@ function routesToTree() {
   interface Menus {
     path: string;
     name: string | symbol | undefined;
-    meta?: { [x: string]: string; [x: number]: string };
+    meta?: {
+      [x: string]: string | symbol | boolean;
+      [x: number]: string | symbol | boolean;
+    };
     comments?: string;
     children?: Menus[];
   }

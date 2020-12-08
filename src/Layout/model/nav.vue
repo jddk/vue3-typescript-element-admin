@@ -1,48 +1,136 @@
 <!--
  * @name: 
  * @Date: 2020-12-01 17:46:51
- * @LastEditTime: 2020-12-02 14:56:14
+ * @LastEditTime: 2020-12-08 16:28:54
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\nav.vue
  * @permission: 
 -->
 <template>
   <div class="nav">
     <el-tag
-      v-for="(tag, i) in tags"
-      :key="tag.name"
+      v-for="(tag, i) in data.tags"
+      :key="tag.path"
       size="medium"
-      closable
+      :closable="!tag.meta.isAffix"
       :effect="tag.effect"
       :type="tag.type"
-      @close="toClose(i)"
+      @close="toClose(i, tag)"
       @click="toClick(tag)"
     >
-      {{ tag.name }}
+      {{ tag.meta.title }}
     </el-tag>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from "vue";
+import { defineComponent, reactive, onMounted } from "vue";
+import { onBeforeRouteUpdate, useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
   name: "md-nav",
   setup() {
-    const tags = reactive([
-      { name: "标签一", type: "success", effect: "dark" },
-      { name: "标签二", type: "info", effect: "plain" },
-      { name: "标签三", type: "info", effect: "plain" },
-      { name: "标签四", type: "info", effect: "plain" },
-      { name: "标签五", type: "info", effect: "plain" }
-    ]);
+    interface Tags {
+      // 路由相关
+      fullPath: string;
+      hash: string;
+      meta?: {
+        [x: string]: string | symbol | boolean;
+        [x: number]: string | symbol | boolean;
+      };
+      name: string | symbol | null | undefined;
+      params: { [x: string]: any; [x: number]: any };
+      path: string;
+      query: { [x: string]: any; [x: number]: any };
+      // 样式相关
+      type: string;
+      effect: string;
+    }
+    interface Data {
+      tags: Tags[];
+    }
 
-    function toClose(i: number) {
-      tags.splice(i, 1);
+    const data = reactive<Data>({
+      tags: []
+    });
+    // 1、关闭单个
+    const router = useRouter();
+    const route = useRoute();
+    function toClose(i: number, tag: Tags) {
+      data.tags.splice(i, 1);
+      if (route.path === tag.path) {
+        if (data.tags.length === 0) {
+          router.push({
+            path: "/home"
+          });
+        } else {
+          const item = data.tags[i - 1];
+          router.push({
+            path: item.path,
+            params: { ...item.params },
+            query: { ...item.params }
+          });
+        }
+      }
     }
-    function toClick(tag: object) {
-      console.log(tag);
+    // 2、跳转
+    function toClick(tag: Tags) {
+      data.tags.forEach((item: Tags) => {
+        if (tag.path === item.path) {
+          item.type = "success";
+          item.effect = "dark";
+        } else {
+          item.type = "info";
+          item.effect = "plain";
+        }
+      });
+      router.push({
+        path: tag.path,
+        params: { ...tag.params },
+        query: { ...tag.params }
+      });
     }
-    return { tags, toClose, toClick };
+
+    // 3、新增标签
+    function addTags(to: any) {
+      // 如果存在直接结束
+      let hasThisTag = false;
+      data.tags.forEach((item: Tags) => {
+        if (to.path === item.path) {
+          item.type = "success";
+          item.effect = "dark";
+          hasThisTag = true;
+        } else {
+          item.type = "info";
+          item.effect = "plain";
+        }
+      });
+      if (hasThisTag) return false;
+
+      // 如果不存在重复向数组中添加
+      data.tags.push({
+        fullPath: to.fullPath,
+        hash: to.hash,
+        meta: { ...to.meta },
+        name: to.name,
+        params: { ...to.params },
+        path: to.path,
+        query: { ...to.query },
+        type: "success",
+        effect: "dark"
+      });
+    }
+
+    // 监听路由变化
+    onBeforeRouteUpdate((to: any) => {
+      addTags(to);
+    });
+
+    // 初始化时添加路由标签
+    onMounted(() => {
+      addTags(route);
+    });
+
+    return { data, toClose, toClick };
   }
 });
 </script>
