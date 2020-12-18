@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 10:19:30
- * @LastEditTime: 2020-12-08 16:37:56
+ * @LastEditTime: 2020-12-18 11:14:14
  * @FilePath: \vue3-typescript-element-admin\src\Layout\Layout.vue
  * @permission: 
 -->
@@ -12,6 +12,7 @@
     <div class="main">
       <!-- 头部信息 -->
       <md-header />
+      <!-- 导航标签 -->
       <md-nav />
       <div class="content">
         <router-view :key="fullPath"></router-view>

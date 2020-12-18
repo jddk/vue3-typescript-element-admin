@@ -1,18 +1,17 @@
 <!--
  * @name: 
  * @Date: 2020-12-02 14:12:56
- * @LastEditTime: 2020-12-11 16:28:48
+ * @LastEditTime: 2020-12-18 14:39:10
  * @FilePath: \vue3-typescript-element-admin\src\views\login\login.vue
  * @permission: 
 -->
 <template>
   <div class="login-container">
     <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
+      ref="elForm"
+      :model="data.form"
+      :rules="data.rules"
       class="login-form"
-      auto-complete="on"
       label-position="right"
     >
       <div class="title-container">
@@ -21,21 +20,14 @@
 
       <el-form-item prop="username">
         <span class="svg-container">
-          <svg-icon
-            icon-class="user"
-            class="el-input__icon"
-            style="height: 39px;width: 13px;margin-left: 2px;"
-          />
+          <svg-icon icon-class="user" />
         </span>
-        <!-- loginForm.username -->
         <el-input
-          ref="username"
-          v-model="test"
+          v-model="data.form.username"
           placeholder="请输入用户名"
           name="username"
           type="text"
           tabindex="1"
-          auto-complete="on"
         />
       </el-form-item>
 
@@ -44,31 +36,29 @@
           <svg-icon icon-class="password" />
         </span>
         <el-input
-          :key="passwordType"
-          ref="password"
-          v-model="loginForm.password"
-          :type="passwordType"
+          :key="data.passwordType"
+          v-model="data.form.password"
+          :type="data.passwordType"
           placeholder="请输入密码"
           name="password"
           tabindex="2"
-          auto-complete="on"
           @keyup.enter="handleLogin"
         />
         <span class="show-pwd" @click="showPwd">
           <svg-icon
-            :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'"
+            :icon-class="data.passwordType === 'password' ? 'eye' : 'eye-open'"
           />
         </span>
       </el-form-item>
       <el-form-item class="el-form-item-none" label="记住密码" align="right">
         <el-checkbox
-          v-model="loginForm.remember"
+          v-model="data.form.remember"
           @change="changeRemember"
         ></el-checkbox>
       </el-form-item>
 
       <el-button
-        :loading="loading"
+        :loading="data.loading"
         type="primary"
         style="width: 100%; margin-bottom: 30px"
         @click.prevent="handleLogin"
@@ -79,38 +69,32 @@
 </template>
 
 <script lang="ts">
-import {
-  defineComponent,
-  reactive,
-  ref,
-  onMounted,
-  nextTick,
-  toRefs
-} from "vue";
+import { defineComponent, reactive, ref, onMounted, nextTick } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "login",
   setup() {
-    const test = ref("text");
+    const elForm: any = ref(null);
     const data = reactive({
-      loginForm: { username: "", password: "", remember: false },
-      loginRules: {
-        username: [{ required: true, trigger: "blur", message: "不能为空" }]
+      form: {
+        username: "",
+        password: "",
+        remember: false
       },
-      password: [{ required: true, trigger: "blur", message: "不能为空" }],
+      rules: {
+        username: [{ required: true, trigger: "blur", message: "不能为空" }],
+        password: [{ required: true, trigger: "blur", message: "不能为空" }]
+      },
       loading: false,
-      passwordType: "password",
-      redirect: undefined
+      passwordType: "password"
     });
+
     const router = useRouter();
-    function toLogin() {
-      localStorage.setItem("TOKEN-VUE3-TS-EL-ADMIN", "xxxxxxxxxx");
-      router.push({ path: "/" });
-    }
+
     onMounted(() => {
       if (localStorage.getItem("remember")) {
-        data.loginForm = {
+        data.form = {
           username: localStorage.getItem("username") || "",
           password: localStorage.getItem("password") || "",
           remember: true
@@ -123,16 +107,12 @@ export default defineComponent({
       } else {
         data.passwordType = "password";
       }
-      nextTick(() => {
-        const password: any = ref(null);
-        password.value.focus();
-      });
     }
     function changeRemember(val: boolean) {
       if (val) {
         localStorage.setItem("remember", "true");
-        localStorage.setItem("username", data.loginForm.username);
-        localStorage.setItem("password", data.loginForm.password);
+        localStorage.setItem("username", data.form.username);
+        localStorage.setItem("password", data.form.password);
       } else {
         localStorage.removeItem("remember");
         localStorage.removeItem("username");
@@ -140,31 +120,24 @@ export default defineComponent({
       }
     }
     function handleLogin() {
-      if (data.loginForm.remember) {
+      if (data.form.remember) {
         localStorage.setItem("remember", "true");
-        localStorage.setItem("username", data.loginForm.username);
-        localStorage.setItem("password", data.loginForm.password);
+        localStorage.setItem("username", data.form.username);
+        localStorage.setItem("password", data.form.password);
       } else {
         localStorage.removeItem("remember");
         localStorage.removeItem("username");
         localStorage.removeItem("password");
       }
-      interface Ref {
-        value: any;
-      }
-      const loginForm: Ref = ref(null);
-      loginForm.value.validate((valid: boolean) => {
+
+      elForm.value.validate((valid: boolean) => {
         if (valid) {
           data.loading = true;
-          // data.$store
-          //   .dispatch("user/login", this.loginForm)
-          //   .then(() => {
-          //     this.$router.push({ path: "/" });
-          //     this.loading = false;
-          //   })
-          //   .catch(() => {
-          //     this.loading = false;
-          //   });
+          setTimeout(() => {
+            data.loading = false;
+            localStorage.setItem("TOKEN-VUE3-TS-EL-ADMIN", "xxxxxxxxxx");
+            router.push({ path: "/" });
+          }, 400);
         } else {
           console.log("error submit!!");
           return false;
@@ -172,10 +145,9 @@ export default defineComponent({
       });
     }
     return {
-      ...data,
-      test,
+      data,
+      elForm,
       changeRemember,
-      toLogin,
       showPwd,
       handleLogin
     };

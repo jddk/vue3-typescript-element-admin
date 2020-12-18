@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-12-08 15:23:59
+ * @LastEditTime: 2020-12-18 14:38:46
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -13,7 +13,7 @@
         :class="{ active: !isCollapse }"
         @click="changeMenu"
       ></i>
-      <el-breadcrumb separator="/">
+      <el-breadcrumb v-if="data.routeList.length > 0" separator="/">
         <el-breadcrumb-item v-for="item in data.routeList" :key="item.path">{{
           item.meta.title
         }}</el-breadcrumb-item>
@@ -98,6 +98,7 @@ export default defineComponent({
 
     // 3、当前路由层级计算
     const data = getRouteList();
+    // console.log("===", data.routeList);
 
     return { isCollapse, changeMenu, toLogout, data };
   }
