@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-08 16:31:31
+ * @LastEditTime: 2020-12-18 15:47:57
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -14,6 +14,7 @@
       text-color="#bfcbd9"
       active-text-color="#409EFF"
       :collapse="isCollapse"
+      :collapse-transition="true"
       @select="toSelect"
     >
       <md-menu-item :menus="treeMenus" />
@@ -110,7 +111,6 @@ export default defineComponent({
 }
 .el-menu:not(.el-menu--collapse) {
   width: 220px;
-  min-height: 400px;
 }
 .menu {
   // 整个滚动条

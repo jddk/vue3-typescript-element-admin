@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 10:19:30
- * @LastEditTime: 2020-12-18 11:14:14
+ * @LastEditTime: 2020-12-18 15:56:43
  * @FilePath: \vue3-typescript-element-admin\src\Layout\Layout.vue
  * @permission: 
 -->
@@ -15,7 +15,9 @@
       <!-- 导航标签 -->
       <md-nav />
       <div class="content">
-        <router-view :key="fullPath"></router-view>
+        <transition name="fade" mode="out-in">
+          <router-view :key="fullPath"></router-view>
+        </transition>
       </div>
     </div>
   </div>
