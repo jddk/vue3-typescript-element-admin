@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-02 14:12:56
- * @LastEditTime: 2020-12-18 14:39:10
+ * @LastEditTime: 2020-12-18 14:45:00
  * @FilePath: \vue3-typescript-element-admin\src\views\login\login.vue
  * @permission: 
 -->
@@ -69,7 +69,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, onMounted, nextTick } from "vue";
+import { defineComponent, reactive, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
@@ -90,8 +90,7 @@ export default defineComponent({
       passwordType: "password"
     });
 
-    const router = useRouter();
-
+    // 初始化如果有记住密码，密码赋值
     onMounted(() => {
       if (localStorage.getItem("remember")) {
         data.form = {
@@ -101,6 +100,8 @@ export default defineComponent({
         };
       }
     });
+
+    // 显示和加密密码
     function showPwd() {
       if (data.passwordType === "password") {
         data.passwordType = "";
@@ -108,6 +109,8 @@ export default defineComponent({
         data.passwordType = "password";
       }
     }
+
+    // 勾选记住密码
     function changeRemember(val: boolean) {
       if (val) {
         localStorage.setItem("remember", "true");
@@ -119,6 +122,9 @@ export default defineComponent({
         localStorage.removeItem("password");
       }
     }
+
+    // 点击登录
+    const router = useRouter();
     function handleLogin() {
       if (data.form.remember) {
         localStorage.setItem("remember", "true");
