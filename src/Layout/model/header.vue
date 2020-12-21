@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-12-18 15:30:57
+ * @LastEditTime: 2020-12-21 10:59:19
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -32,7 +32,34 @@
       </el-breadcrumb>
     </div>
     <div class="right">
-      <el-button @click="toLogout">退出登录</el-button>
+      <el-dropdown trigger="hover">
+        <div class="avatar-wrapper">
+          <img
+            src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80"
+            class="user-avatar"
+          />
+          <i class="el-icon-caret-bottom" />
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <a
+              target="_blank"
+              href="https://github.com/jddk/vue3-typescript-element-admin/"
+            >
+              <el-dropdown-item>Github</el-dropdown-item>
+            </a>
+            <!-- <a
+              target="_blank"
+              href="https://panjiachen.github.io/vue-element-admin-site/#/"
+            >
+              <el-dropdown-item>Docs</el-dropdown-item>
+            </a> -->
+            <el-dropdown-item divided @click="toLogout">
+              退出登录
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -125,7 +152,7 @@ export default defineComponent({
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 10px;
+  padding: 0 10px;
   box-sizing: border-box;
 }
 .header-btn {
@@ -138,6 +165,7 @@ export default defineComponent({
   align-items: center;
 }
 
+// 切换菜单按钮
 .hamburger {
   display: inline-block;
   vertical-align: middle;
@@ -149,5 +177,13 @@ export default defineComponent({
 
 .hamburger.is-active {
   transform: rotate(180deg);
+}
+
+// 头像
+.user-avatar {
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
 }
 </style>
