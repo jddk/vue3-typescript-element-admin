@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-01 17:46:51
- * @LastEditTime: 2020-12-08 16:28:54
+ * @LastEditTime: 2020-12-21 16:17:10
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\nav.vue
  * @permission: 
 -->
@@ -27,7 +27,7 @@ import { defineComponent, reactive, onMounted } from "vue";
 import { onBeforeRouteUpdate, useRouter, useRoute } from "vue-router";
 
 export default defineComponent({
-  name: "md-nav",
+  name: "app-nav",
   setup() {
     interface Tags {
       // 路由相关

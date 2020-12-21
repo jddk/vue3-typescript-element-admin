@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-12-21 10:59:19
+ * @LastEditTime: 2020-12-21 16:15:11
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -115,7 +115,7 @@ function getRouteList() {
   return data;
 }
 export default defineComponent({
-  name: "md-header",
+  name: "app-header",
   setup() {
     // 1、展开收起侧边栏逻辑
     const isCollapse = ref(true);

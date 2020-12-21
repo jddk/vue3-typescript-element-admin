@@ -1,8 +1,8 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-11-27 17:18:12
- * @FilePath: \fy_erp_vue3\src\App.vue
+ * @LastEditTime: 2020-12-21 14:14:21
+ * @FilePath: \vue3-typescript-element-admin\src\App.vue
  * @permission: 
 -->
 <template>

@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-18 15:47:57
+ * @LastEditTime: 2020-12-21 16:09:25
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -74,6 +74,7 @@ function routesToTree() {
   return treeMenus;
 }
 export default defineComponent({
+  name: "app-menu",
   components: { mdMenuItem },
   setup() {
     // 1、选择路由

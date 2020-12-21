@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-08 16:57:53
+ * @LastEditTime: 2020-12-21 17:45:06
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
@@ -26,7 +26,7 @@ const routes: RouteRecordRaw[] = [
         path: "/home",
         component: () => import("@/views/home/home.vue"),
         name: "home",
-        meta: { title: "首页", icon: "index", isAffix: true }
+        meta: { title: "首页", icon: "index", affix: true, noCache: true }
       },
       {
         path: "/rent",
@@ -62,7 +62,7 @@ const routes: RouteRecordRaw[] = [
         path: "/setting/permission",
         name: "permission",
         component: () => import("./Empty.vue"),
-        meta: { title: "权限管理", parent: "setting" }
+        meta: { title: "权限管理", parent: "setting", noCache: true }
       },
       {
         path: "/setting/permission/role",
