@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 11:15:08
- * @LastEditTime: 2020-12-21 16:09:25
+ * @LastEditTime: 2020-12-22 15:45:13
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\menu.vue
  * @permission: 
 -->
@@ -79,8 +79,8 @@ export default defineComponent({
   setup() {
     // 1、选择路由
     const router = useRouter();
-    function toSelect(index: string) {
-      router.push({ path: index });
+    function toSelect(path: string) {
+      router.push({ path: path });
     }
 
     // 2、左侧菜单展开收起

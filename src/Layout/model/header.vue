@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-12-21 16:15:11
+ * @LastEditTime: 2020-12-22 10:11:31
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -137,7 +137,6 @@ export default defineComponent({
 
     // 3、当前路由层级计算
     const data = getRouteList();
-    // console.log("===", data.routeList);
 
     return { isCollapse, changeMenu, toLogout, data };
   }

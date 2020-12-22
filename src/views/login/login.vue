@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-02 14:12:56
- * @LastEditTime: 2020-12-18 14:45:00
+ * @LastEditTime: 2020-12-22 10:49:32
  * @FilePath: \vue3-typescript-element-admin\src\views\login\login.vue
  * @permission: 
 -->
@@ -78,8 +78,8 @@ export default defineComponent({
     const elForm: any = ref(null);
     const data = reactive({
       form: {
-        username: "",
-        password: "",
+        username: "1",
+        password: "1",
         remember: false
       },
       rules: {

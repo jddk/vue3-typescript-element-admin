@@ -1,13 +1,14 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-21 17:45:06
+ * @LastEditTime: 2020-12-22 16:55:31
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Layout from "../Layout/Layout.vue";
 import Login from "@/views/login/login.vue";
+import Home from "@/views/home/home.vue";
 
 const routes: RouteRecordRaw[] = [
   {
@@ -24,7 +25,7 @@ const routes: RouteRecordRaw[] = [
     children: [
       {
         path: "/home",
-        component: () => import("@/views/home/home.vue"),
+        component: Home,
         name: "home",
         meta: { title: "首页", icon: "index", affix: true, noCache: true }
       },

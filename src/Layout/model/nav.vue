@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-01 17:46:51
- * @LastEditTime: 2020-12-21 16:17:10
+ * @LastEditTime: 2020-12-22 16:55:48
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\nav.vue
  * @permission: 
 -->
@@ -11,7 +11,7 @@
       v-for="(tag, i) in data.tags"
       :key="tag.path"
       size="medium"
-      :closable="!tag.meta.isAffix"
+      :closable="!tag.meta.affix"
       :effect="tag.effect"
       :type="tag.type"
       @close="toClose(i, tag)"
@@ -25,7 +25,7 @@
 <script lang="ts">
 import { defineComponent, reactive, onMounted } from "vue";
 import { onBeforeRouteUpdate, useRouter, useRoute } from "vue-router";
-
+import Bus from "./bus";
 export default defineComponent({
   name: "app-nav",
   setup() {
@@ -57,6 +57,8 @@ export default defineComponent({
     const route = useRoute();
     function toClose(i: number, tag: Tags) {
       data.tags.splice(i, 1);
+      // 传递关闭的组件名称用户删除缓存
+      Bus.$emit("closeTag", tag.name);
       if (route.path === tag.path) {
         if (data.tags.length === 0) {
           router.push({
@@ -118,6 +120,10 @@ export default defineComponent({
         type: "success",
         effect: "dark"
       });
+      // 添加缓存
+      if (!to.meta.noCache) {
+        Bus.$emit("addCachedViews", to.name);
+      }
     }
 
     // 监听路由变化
