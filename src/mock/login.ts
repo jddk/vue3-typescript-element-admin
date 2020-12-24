@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-12-24 12:04:12
- * @LastEditTime: 2020-12-24 12:20:21
+ * @LastEditTime: 2020-12-24 17:55:48
  * @FilePath: \vue3-typescript-element-admin\src\mock\login.ts
  * @permission:
  */
@@ -28,6 +28,7 @@ export function login() {
   });
   //实现对拦截到请求的处理
   Mock.mock("api/login", "post", (req: any) => {
+    console.log("==", req);
     const { username, password } = JSON.parse(req.body);
     if (username == "admin" && password == "123456") {
       return {

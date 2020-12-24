@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-02 14:12:56
- * @LastEditTime: 2020-12-24 14:30:45
+ * @LastEditTime: 2020-12-24 18:00:11
  * @FilePath: \vue3-typescript-element-admin\src\views\login\login.vue
  * @permission: 
 -->
@@ -70,8 +70,9 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, onMounted } from "vue";
-import { ElForm } from "element-plus";
 import { useRouter } from "vue-router";
+import { login } from "@/api/login";
+import { ElNotification } from "element-plus";
 
 export default defineComponent({
   name: "login",
@@ -79,8 +80,8 @@ export default defineComponent({
     const elForm = ref(null);
     const data = reactive({
       form: {
-        username: "1",
-        password: "1",
+        username: "admin",
+        password: "123456",
         remember: false
       },
       rules: {
@@ -140,11 +141,17 @@ export default defineComponent({
       (elForm.value as any).validate((valid: boolean) => {
         if (valid) {
           data.loading = true;
-          setTimeout(() => {
+          login(data.form).then((res: any) => {
             data.loading = false;
-            localStorage.setItem("TOKEN-VUE3-TS-EL-ADMIN", "xxxxxxxxxx");
-            router.push({ path: "/" });
-          }, 400);
+            if (res.code === 1) {
+              localStorage.setItem("TOKEN-VUE3-TS-EL-ADMIN", "xxxxxxxxxx");
+              router.push({ path: "/" });
+            } else {
+              ElNotification({
+                title: res.msg
+              });
+            }
+          });
         } else {
           console.log("error submit!!");
           return false;

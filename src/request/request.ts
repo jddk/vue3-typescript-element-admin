@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-12-24 12:06:10
- * @LastEditTime: 2020-12-24 12:16:45
+ * @LastEditTime: 2020-12-24 17:54:09
  * @FilePath: \vue3-typescript-element-admin\src\request\request.ts
  * @permission:
  */
@@ -12,7 +12,7 @@ import store from "../store";
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
+  // baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
   timeout: 60000 // 请求超时时间
 });
 
@@ -20,9 +20,12 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // login接口不传token
-    if (localStorage.getItem("token") && config.url != "auth/login") {
+    if (
+      localStorage.getItem("TOKEN-VUE3-TS-EL-ADMIN") &&
+      config.url != "api/login"
+    ) {
       config.headers["Authorization"] =
-        "Bearer " + localStorage.getItem("token"); // 让每个请求携带自定义token 请根据实际情况自行修改
+        "Bearer " + localStorage.getItem("TOKEN-VUE3-TS-EL-ADMIN"); // 让每个请求携带自定义token 请根据实际情况自行修改
     }
     config.headers["Content-Type"] = "application/json";
     return config;

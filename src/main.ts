@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-24 14:21:51
+ * @LastEditTime: 2020-12-24 17:52:58
  * @FilePath: \vue3-typescript-element-admin\src\main.ts
  * @permission:
  */
@@ -17,6 +17,10 @@ import "element-plus/lib/theme-chalk/index.css";
 import "@/styles/index.scss"; // global css
 
 import SvgIcon from "@/components/SvgIcon/SvgIcon.vue";
+
+// mock
+import { login } from "./mock/login";
+login();
 
 createApp(App)
   .use(store)

@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-01 17:46:51
- * @LastEditTime: 2020-12-24 14:20:54
+ * @LastEditTime: 2020-12-24 16:03:29
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\nav.vue
  * @permission: 
 -->
@@ -34,6 +34,9 @@ import Bus from "./bus";
 export default defineComponent({
   name: "app-nav",
   setup() {
+    interface ParamsAndQuery {
+      [x: string]: any;
+    }
     interface Tags {
       // 路由相关
       fullPath: string;
@@ -43,9 +46,9 @@ export default defineComponent({
         [x: number]: string | symbol | boolean;
       };
       name: string | symbol | null | undefined;
-      params: { [x: string]: any; [x: number]: any };
+      params: ParamsAndQuery;
       path: string;
-      query: { [x: string]: any; [x: number]: any };
+      query: ParamsAndQuery;
       // 样式相关
       type: string;
       effect: string;

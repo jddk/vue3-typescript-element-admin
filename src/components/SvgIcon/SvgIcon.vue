@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-09 11:20:26
- * @LastEditTime: 2020-12-24 12:26:29
+ * @LastEditTime: 2020-12-24 17:36:41
  * @FilePath: \vue3-typescript-element-admin\src\components\SvgIcon\SvgIcon.vue
  * @permission: 
 -->
@@ -26,7 +26,6 @@ export default defineComponent({
     }
   },
   setup(props) {
-    console.log(props.iconClass);
     const iconName = computed(() => `#icon-${props.iconClass}`);
     const svgClass = computed(() => {
       if (props.className) {
