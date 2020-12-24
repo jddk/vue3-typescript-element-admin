@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-22 16:55:31
+ * @LastEditTime: 2020-12-24 10:14:06
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
