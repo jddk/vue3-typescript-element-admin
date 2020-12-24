@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2020-12-22 10:11:31
+ * @LastEditTime: 2020-12-24 14:19:51
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -76,7 +76,8 @@ import {
   useRouter,
   useRoute,
   onBeforeRouteUpdate,
-  RouteRecordRaw
+  RouteRecordRaw,
+  RouteLocationNormalized
 } from "vue-router";
 import Bus from "./bus";
 // 当前路由层级计算
@@ -108,7 +109,7 @@ function getRouteList() {
     pathToArr(route.path, route.matched[0].children);
   });
   // 路由更新
-  onBeforeRouteUpdate((to: any) => {
+  onBeforeRouteUpdate((to: RouteLocationNormalized) => {
     pathToArr(to.path, to.matched[0].children);
   });
 

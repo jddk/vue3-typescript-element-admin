@@ -1,8 +1,8 @@
 <!--
  * @name: 
  * @Date: 2020-12-09 11:20:26
- * @LastEditTime: 2020-12-11 16:13:42
- * @FilePath: \vue3-typescript-element-admin\src\components\SvgIcon\index.vue
+ * @LastEditTime: 2020-12-24 12:26:29
+ * @FilePath: \vue3-typescript-element-admin\src\components\SvgIcon\SvgIcon.vue
  * @permission: 
 -->
 <template>

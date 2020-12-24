@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-02 14:12:56
- * @LastEditTime: 2020-12-22 10:49:32
+ * @LastEditTime: 2020-12-24 14:30:45
  * @FilePath: \vue3-typescript-element-admin\src\views\login\login.vue
  * @permission: 
 -->
@@ -70,12 +70,13 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, onMounted } from "vue";
+import { ElForm } from "element-plus";
 import { useRouter } from "vue-router";
 
 export default defineComponent({
   name: "login",
   setup() {
-    const elForm: any = ref(null);
+    const elForm = ref(null);
     const data = reactive({
       form: {
         username: "1",
@@ -136,7 +137,7 @@ export default defineComponent({
         localStorage.removeItem("password");
       }
 
-      elForm.value.validate((valid: boolean) => {
+      (elForm.value as any).validate((valid: boolean) => {
         if (valid) {
           data.loading = true;
           setTimeout(() => {

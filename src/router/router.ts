@@ -1,11 +1,11 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-24 10:14:06
+ * @LastEditTime: 2020-12-24 15:47:49
  * @FilePath: \vue3-typescript-element-admin\src\router\router.ts
  * @permission:
  */
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Layout from "../Layout/Layout.vue";
 import Login from "@/views/login/login.vue";
 import Home from "@/views/home/home.vue";
@@ -89,7 +89,8 @@ const routes: RouteRecordRaw[] = [
 ];
 
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  // createWebHistory(process.env.BASE_URL)
+  history: createWebHashHistory(""),
   routes
 });
 

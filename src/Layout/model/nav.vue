@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-01 17:46:51
- * @LastEditTime: 2020-12-22 16:55:48
+ * @LastEditTime: 2020-12-24 14:20:54
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\nav.vue
  * @permission: 
 -->
@@ -24,7 +24,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive, onMounted } from "vue";
-import { onBeforeRouteUpdate, useRouter, useRoute } from "vue-router";
+import {
+  onBeforeRouteUpdate,
+  useRouter,
+  useRoute,
+  RouteLocationNormalized
+} from "vue-router";
 import Bus from "./bus";
 export default defineComponent({
   name: "app-nav",
@@ -93,7 +98,7 @@ export default defineComponent({
     }
 
     // 3、新增标签
-    function addTags(to: any) {
+    function addTags(to: RouteLocationNormalized) {
       // 如果存在直接结束
       let hasThisTag = false;
       data.tags.forEach((item: Tags) => {
@@ -127,7 +132,7 @@ export default defineComponent({
     }
 
     // 监听路由变化
-    onBeforeRouteUpdate((to: any) => {
+    onBeforeRouteUpdate((to: RouteLocationNormalized) => {
       addTags(to);
     });
 

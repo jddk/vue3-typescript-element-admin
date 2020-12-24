@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-11-27 09:49:28
- * @LastEditTime: 2020-12-11 16:16:27
+ * @LastEditTime: 2020-12-24 14:21:51
  * @FilePath: \vue3-typescript-element-admin\src\main.ts
  * @permission:
  */
@@ -26,7 +26,7 @@ createApp(App)
   .mount("#app");
 
 // 自动导入svg
-const requireAll = (requireContext: any) =>
+const requireAll = (requireContext: __WebpackModuleApi.RequireContext) =>
   requireContext.keys().map(requireContext);
 const req = require.context("./icons/svg", false, /\.svg$/);
 requireAll(req);

@@ -5,15 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode dev",
     "build": "vue-cli-service build --mode prod",
-    "build:dev":"vue-cli-service build --mode dev",
-    "build:test":"vue-cli-service build --mode test",
+    "build:dev": "vue-cli-service build --mode dev",
+    "build:test": "vue-cli-service build --mode test",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "element-plus": "^1.0.1-alpha.22",
+    "mockjs": "^1.1.0",
     "normalize.css": "^8.0.1",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0",
@@ -22,6 +24,7 @@
   },
   "devDependencies": {
     "@types/jest": "^24.0.19",
+    "@types/mockjs": "^1.0.3",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-babel": "~4.5.0",
