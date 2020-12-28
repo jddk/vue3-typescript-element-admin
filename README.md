@@ -1,7 +1,13 @@
 # vue3-typescript-element-admin
 
 技术栈：vue3 + typescript + element-plus
-![](./public/img/readme/index.png)
+
+## 项目预览
+
+> 自己买的阿里云服务器速度有点慢
+
+- 项目预览[项目线上预览](http://jddk.ren:8088)
+- 项目文档[项目文档](http://jddk.ren:8089)
 
 ## 注意
 

@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-02 14:12:56
- * @LastEditTime: 2020-12-24 18:00:11
+ * @LastEditTime: 2020-12-25 14:21:26
  * @FilePath: \vue3-typescript-element-admin\src\views\login\login.vue
  * @permission: 
 -->
@@ -64,6 +64,7 @@
         @click.prevent="handleLogin"
         >登录</el-button
       >
+      <p style="color:#fff;">账号：admin 密码：123456</p>
     </el-form>
   </div>
 </template>
@@ -143,13 +144,13 @@ export default defineComponent({
           data.loading = true;
           login(data.form).then((res: any) => {
             data.loading = false;
+            ElNotification({
+              type: res.code === 1 ? "success" : "error",
+              title: res.msg
+            });
             if (res.code === 1) {
               localStorage.setItem("TOKEN-VUE3-TS-EL-ADMIN", "xxxxxxxxxx");
               router.push({ path: "/" });
-            } else {
-              ElNotification({
-                title: res.msg
-              });
             }
           });
         } else {

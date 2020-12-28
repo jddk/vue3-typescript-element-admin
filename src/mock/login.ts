@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-12-24 12:04:12
- * @LastEditTime: 2020-12-24 17:55:48
+ * @LastEditTime: 2020-12-25 14:51:03
  * @FilePath: \vue3-typescript-element-admin\src\mock\login.ts
  * @permission:
  */
@@ -33,9 +33,9 @@ export function login() {
     if (username == "admin" && password == "123456") {
       return {
         code: 1,
-        msg: "成功",
-        token: "teosdsfdfdksdfs232323",
-        menu
+        msg: "登录成功",
+        token: "teosdsfdfdksdfs232323"
+        // menu
       };
     } else {
       return {
