@@ -6,8 +6,8 @@
 
 > 自己买的阿里云服务器速度有点慢
 
-- 项目预览[项目线上预览](http://jddk.ren:8088)
-- 项目文档[项目文档](http://jddk.ren:8089)
+- 项目预览 <a href="http://jddk.ren:8088" target="_blank">项目线上预览</a>
+- 项目文档<a href="http://jddk.ren:8089" target="_blank">项目文档线上预览</a>
 
 ## 注意
 
