@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2021-01-23 14:28:08
+ * @LastEditTime: 2021-01-23 14:42:43
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -32,7 +32,6 @@
       </el-breadcrumb>
     </div>
     <div class="right flex-center">
-      <!-- <el-button @click="setUsername">设置用户名</el-button> -->
       <h3 style="margin-right:20px;">{{ username }}</h3>
       <el-dropdown trigger="hover">
         <div class="avatar-wrapper">
@@ -143,17 +142,10 @@ export default defineComponent({
     // 3、当前路由层级计算
     const data = getRouteList();
 
-    // 用户信息
+    // 4、用户信息
     const username = computed(() => user.username);
-    function setUsername() {
-      setUser({
-        username: "7777",
-        id: 0,
-        role: "77777"
-      });
-    }
 
-    return { isCollapse, changeMenu, toLogout, data, setUsername, username };
+    return { isCollapse, changeMenu, toLogout, data, username };
   }
 });
 </script>
