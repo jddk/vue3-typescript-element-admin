@@ -1,18 +1,18 @@
 /*
  * @name:
  * @Date: 2020-12-24 12:06:10
- * @LastEditTime: 2020-12-24 17:54:09
+ * @LastEditTime: 2021-01-23 13:17:41
  * @FilePath: \vue3-typescript-element-admin\src\request\request.ts
  * @permission:
  */
 import axios from "axios";
 import router from "@/router/router";
 import { ElNotification, ElMessageBox } from "element-plus";
-import store from "../store";
+// import store from "../store/store";
 
 // 创建axios实例
 const service = axios.create({
-  // baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
+  baseURL: process.env.VUE_APP_BASE_API, // api 的 base_url
   timeout: 60000 // 请求超时时间
 });
 
@@ -22,7 +22,7 @@ service.interceptors.request.use(
     // login接口不传token
     if (
       localStorage.getItem("TOKEN-VUE3-TS-EL-ADMIN") &&
-      config.url != "api/login"
+      config.url != "auth/login"
     ) {
       config.headers["Authorization"] =
         "Bearer " + localStorage.getItem("TOKEN-VUE3-TS-EL-ADMIN"); // 让每个请求携带自定义token 请根据实际情况自行修改
@@ -85,9 +85,9 @@ service.interceptors.response.use(
           type: "warning"
         }
       ).then(() => {
-        store.dispatch("LogOut").then(() => {
-          location.reload(); // 为了重新实例化vue-router对象 避免bug
-        });
+        // store.dispatch("LogOut").then(() => {
+        //   location.reload(); // 为了重新实例化vue-router对象 避免bug
+        // });
       });
     } else if (code === 403) {
       router.push({ path: "/401" });

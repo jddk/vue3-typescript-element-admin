@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-12-02 14:12:56
- * @LastEditTime: 2020-12-25 14:21:26
+ * @LastEditTime: 2021-01-23 14:32:28
  * @FilePath: \vue3-typescript-element-admin\src\views\login\login.vue
  * @permission: 
 -->
@@ -74,7 +74,7 @@ import { defineComponent, reactive, ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { login } from "@/api/login";
 import { ElNotification } from "element-plus";
-
+import { setUser } from "@/store/user";
 export default defineComponent({
   name: "login",
   setup() {
@@ -143,15 +143,19 @@ export default defineComponent({
         if (valid) {
           data.loading = true;
           login(data.form).then((res: any) => {
+            console.log(res);
             data.loading = false;
             ElNotification({
-              type: res.code === 1 ? "success" : "error",
-              title: res.msg
+              type: "success",
+              title: "登录成功"
             });
-            if (res.code === 1) {
-              localStorage.setItem("TOKEN-VUE3-TS-EL-ADMIN", "xxxxxxxxxx");
-              router.push({ path: "/" });
-            }
+            setUser({
+              id: res.user.id,
+              role: res.user.role,
+              username: res.user.username
+            });
+            localStorage.setItem("TOKEN-VUE3-TS-EL-ADMIN", res.token);
+            router.push({ path: "/" });
           });
         } else {
           console.log("error submit!!");
