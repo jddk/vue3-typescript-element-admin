@@ -1,7 +1,7 @@
 <!--
  * @name: 
  * @Date: 2020-11-27 17:14:22
- * @LastEditTime: 2021-01-23 14:42:43
+ * @LastEditTime: 2021-01-23 16:09:23
  * @FilePath: \vue3-typescript-element-admin\src\Layout\model\header.vue
  * @permission: 
 -->
@@ -81,7 +81,7 @@ import {
   RouteRecordRaw,
   RouteLocationNormalized
 } from "vue-router";
-import { user, setUser } from "@/store/user";
+import { user } from "@/store/user";
 import Bus from "./bus";
 // 当前路由层级计算
 function getRouteList() {
