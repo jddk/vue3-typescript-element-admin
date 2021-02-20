@@ -1,7 +1,7 @@
 /*
  * @name:
  * @Date: 2020-12-24 12:06:10
- * @LastEditTime: 2021-01-23 13:17:41
+ * @LastEditTime: 2021-02-20 17:05:39
  * @FilePath: \vue3-typescript-element-admin\src\request\request.ts
  * @permission:
  */
@@ -85,9 +85,9 @@ service.interceptors.response.use(
           type: "warning"
         }
       ).then(() => {
-        // store.dispatch("LogOut").then(() => {
-        //   location.reload(); // 为了重新实例化vue-router对象 避免bug
-        // });
+        localStorage.removeItem("TOKEN-VUE3-TS-EL-ADMIN");
+        router.push({ path: "/login" });
+        location.reload();
       });
     } else if (code === 403) {
       router.push({ path: "/401" });
